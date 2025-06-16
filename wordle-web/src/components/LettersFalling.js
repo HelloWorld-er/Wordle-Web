@@ -61,7 +61,8 @@ export default function LettersFalling({className, style, positionClass = "relat
     }, {dependencies: [isItemsCreated], scope: animationContainer});
 
     return (
-        <div ref={animationContainer} className={"w-full h-full overflow-hidden" + " " + className + " " + positionClass} style={style}>
+        <div ref={animationContainer}
+             className={"w-full h-full overflow-hidden" + " " + className + " " + positionClass} style={style}>
             {generatedLetters.map((item, index) => {
                 return (
                     <span key={index} className={"absolute select-none" + " " + item.className}>

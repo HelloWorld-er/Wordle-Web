@@ -19,7 +19,7 @@ export async function fetchARandomWord() {
     }
 }
 
-export async function checkIfAWordValid(word){
+export async function checkIfAWordValid(word) {
     await fetchWordListOnce();
     try {
         return [true, wordList.includes(word)];

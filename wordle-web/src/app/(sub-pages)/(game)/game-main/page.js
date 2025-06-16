@@ -1,18 +1,19 @@
 'use client';
 
-import {useEffect, useState, useContext, useRef} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import {useBuiltinKeyboard} from "@/hooks/useBuiltinKeyboard";
 import Show from "@/components/Show";
 
 import {keyContext, keyDispatchContext} from "@/context/KeyboardContext";
 import {
+    WordleExistedLettersBufferContext,
     WordleGameStateContext,
-    WordleWordContext,
-    WordleWordCheckContext,
     WordleLettersAvailabilityBufferContext,
     WordleLettersAvailabilityMapContext,
     WordleLetterStatesContext,
-    WordleWordLetterPositionContext, WordleExistedLettersBufferContext
+    WordleWordCheckContext,
+    WordleWordContext,
+    WordleWordLetterPositionContext
 } from "@/context/WordleContext";
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
@@ -34,8 +35,7 @@ function Keyboard() {
         if (keys.flat().includes(key)) {
             if (key === "ENTER") {
                 key = "Enter";
-            }
-            else if (key === "DEL") {
+            } else if (key === "DEL") {
                 key = "Backspace";
             }
             dispatchKey?.({
@@ -74,7 +74,8 @@ function Keyboard() {
                 {
                     keys[0].map((item, index) => {
                         return (
-                            <button key={index} className={`keyboard-key-${item} ` + "cursor-pointer flex items-center justify-center text-sm/0 px-1 py-4 sm:text-base/0 sm:px-2 sm:py-5 lg:text-lg/0 lg:px-3 lg:py-7 rounded-sm bg-darker-shadow"}
+                            <button key={index}
+                                    className={`keyboard-key-${item} ` + "cursor-pointer flex items-center justify-center text-sm/0 px-1 py-4 sm:text-base/0 sm:px-2 sm:py-5 lg:text-lg/0 lg:px-3 lg:py-7 rounded-sm bg-darker-shadow"}
                                     onClick={(event) => handleKeyClick(event)}>{item}</button>
                         )
                     })
@@ -84,7 +85,8 @@ function Keyboard() {
                 {
                     keys[1].map((item, index) => {
                         return (
-                            <button key={index} className={`keyboard-key-${item} ` + "cursor-pointer flex items-center justify-center text-sm/0 px-1 py-4 sm:text-base/0 sm:px-2 sm:py-5 lg:text-lg/0 lg:px-3 lg:py-7 rounded-sm bg-darker-shadow"}
+                            <button key={index}
+                                    className={`keyboard-key-${item} ` + "cursor-pointer flex items-center justify-center text-sm/0 px-1 py-4 sm:text-base/0 sm:px-2 sm:py-5 lg:text-lg/0 lg:px-3 lg:py-7 rounded-sm bg-darker-shadow"}
                                     onClick={(event) => handleKeyClick(event)}>{item}</button>
                         )
                     })
@@ -94,7 +96,8 @@ function Keyboard() {
                 {
                     keys[2].map((item, index) => {
                         return (
-                            <button key={index} className={(item === "ENTER" || item === "DEL" ? "text-xs/0 px-1 py-4 sm:text-sm/0 sm:px-2 sm:py-5 lg:text-lg/0 lg:px-3 lg:py-7" : "text-sm/0 px-1 py-4 sm:text-base/0 sm:px-2 sm:py-5 lg:text-lg/0 lg:px-3 lg:py-7") + " " + `keyboard-key-${item} ` + "cursor-pointer flex items-center justify-center rounded-sm bg-darker-shadow"}
+                            <button key={index}
+                                    className={(item === "ENTER" || item === "DEL" ? "text-xs/0 px-1 py-4 sm:text-sm/0 sm:px-2 sm:py-5 lg:text-lg/0 lg:px-3 lg:py-7" : "text-sm/0 px-1 py-4 sm:text-base/0 sm:px-2 sm:py-5 lg:text-lg/0 lg:px-3 lg:py-7") + " " + `keyboard-key-${item} ` + "cursor-pointer flex items-center justify-center rounded-sm bg-darker-shadow"}
                                     onClick={(event) => handleKeyClick(event)}>{item}</button>
                         )
                     })
@@ -164,7 +167,7 @@ export default function GameMain() {
             return element.classList.contains(className.slice(1)); // remove the '.' at the start of a className
         });
         for (let keyClassPrefix of keyClassPrefixes) {
-            const keyClassRegex =  new RegExp(`${keyClassPrefix}(\\d+)`);
+            const keyClassRegex = new RegExp(`${keyClassPrefix}(\\d+)`);
             if (keyClassRegex.test(selectedClass)) {
                 return {
                     foundKey: true,
@@ -288,8 +291,7 @@ export default function GameMain() {
                     if (cursorIndex < 4) {
                         setCursorIndex(prevState => prevState + 1);
                     }
-                }
-                else if (key === "Enter") {
+                } else if (key === "Enter") {
                     ifEnter = true;
                     dispatchCurrentGameState({
                         type: "set",
@@ -314,8 +316,7 @@ export default function GameMain() {
                             states: content
                         });
                     }
-                }
-                else if (key === "Backspace"){
+                } else if (key === "Backspace") {
                     if (cursorIndex >= 0 && guessedLetterStates[guessIndex * 5 + cursorIndex].letter) {
                         dispatchGuessedLetterStates({
                             type: "remove",
@@ -343,7 +344,10 @@ export default function GameMain() {
                 });
             }
         }
-        handleKeyPress().then(() => {}).catch(() => {});
+
+        handleKeyPress().then(() => {
+        }).catch(() => {
+        });
     }, [ifInput, currentGameState, dispatchCurrentGameState, GameStates, generatedWord, checkIfWordValidAndCompare, key, dispatchKey, cursorIndex, setCursorIndex, guessIndex, guessedLetterStates, dispatchGuessedLetterStates]);
 
     useGSAP(() => {
@@ -356,7 +360,7 @@ export default function GameMain() {
                     });
                 },
             });
-            const classes = Array.from({ length: 5 }, (_, i) => ".guess-letter-key-" + (guessIndex * 5 + i));
+            const classes = Array.from({length: 5}, (_, i) => ".guess-letter-key-" + (guessIndex * 5 + i));
             tl.to(classes, {
                 x: -40,
                 ease: "power2.out",
@@ -407,7 +411,7 @@ export default function GameMain() {
                         if (!letterKeyInfo.foundKey) {
                             throw new Error("No letter key found!");
                         }
-                        if (updatedLettersBuffer.has(letterKeyInfo.key)){
+                        if (updatedLettersBuffer.has(letterKeyInfo.key)) {
                             const actions = updatedLettersBuffer.get(letterKeyInfo.key).actions;
                             if (!actions.includes("setState") && actions.includes("setLetter")) {
                                 return 1.2;
@@ -429,7 +433,10 @@ export default function GameMain() {
                 actions: ["remove", "setLetter"]
             });
         }
-    }, {dependencies: [updatedLettersBuffer, isInitializingGame, isFirstRender, guessedLetterStates], scope: guessLettersContainer})
+    }, {
+        dependencies: [updatedLettersBuffer, isInitializingGame, isFirstRender, guessedLetterStates],
+        scope: guessLettersContainer
+    })
 
     useGSAP(() => {
         if (!isInitializingGame && updatedLettersBuffer && updatedLettersBuffer.size && guessedLetterStates) {
@@ -540,17 +547,24 @@ export default function GameMain() {
                 actions: ["setState"]
             });
         }
-    }, {dependencies: [updatedLettersBuffer, isInitializingGame, isFirstRender, guessedLetterStates], scope: guessLettersContainer})
+    }, {
+        dependencies: [updatedLettersBuffer, isInitializingGame, isFirstRender, guessedLetterStates],
+        scope: guessLettersContainer
+    })
     return (
         <>
             <div className="w-full h-full flex flex-col justify-center items-center">
-                <div className="relative w-full min-h-4/5 max-h-full bg-background flex flex-col gap-4 justify-evenly items-center overflow-hidden">
+                <div
+                    className="relative w-full min-h-4/5 max-h-full bg-background flex flex-col gap-4 justify-evenly items-center overflow-hidden">
                     <h1>Wordle</h1>
-                    <div className="grow m-4 self-stretch flex flex-col flex-wrap items-center justify-evenly gap-2 overflow-auto">
-                        <div ref={guessLettersContainer} className="w-fit h-fit grid grid-cols-5 mx-auto my-2 gap-2 place-content-center place-items-stretch font-roboto-mono">
+                    <div
+                        className="grow m-4 self-stretch flex flex-col flex-wrap items-center justify-evenly gap-2 overflow-auto">
+                        <div ref={guessLettersContainer}
+                             className="w-fit h-fit grid grid-cols-5 mx-auto my-2 gap-2 place-content-center place-items-stretch font-roboto-mono">
                             {guessedLetterStates && guessedLetterStates.map((item, index) => {
                                 return (
-                                    <div key={index} className={`guess-letter-key-${index} ` + "transition-all box-content aspect-square size-text-sm text-sm/0 sm:size-text-base sm:text-base/0 md:size-text-lg md:text-lg/0 lg:size-text-xl lg:text-xl/0 xl:size-text-2xl xl:text-2xl font-bold p-2 border-2 border-solid border-darker-shadow bg-bright-shadow flex items-center justify-center"}>
+                                    <div key={index}
+                                         className={`guess-letter-key-${index} ` + "transition-all box-content aspect-square size-text-sm text-sm/0 sm:size-text-base sm:text-base/0 md:size-text-lg md:text-lg/0 lg:size-text-xl lg:text-xl/0 xl:size-text-2xl xl:text-2xl font-bold p-2 border-2 border-solid border-darker-shadow bg-bright-shadow flex items-center justify-center"}>
                                         {item.letter}
                                     </div>
                                 )
@@ -560,21 +574,26 @@ export default function GameMain() {
                         <div className="mx-auto block"><Keyboard/></div>
                     </div>
                     <Show when={showPopup}>
-                        <div className="absolute left-1/2 top-1/6 p-2 text-sm xl:text-base -translate-1/2 rounded-sm bg-foreground text-background opacity-80 animate-bounce">
+                        <div
+                            className="absolute left-1/2 top-1/6 p-2 text-sm xl:text-base -translate-1/2 rounded-sm bg-foreground text-background opacity-80 animate-bounce">
                             {popupContent}
                         </div>
                     </Show>
                 </div>
             </div>
-            <div ref={endWindow} className={(endGame ? "" : "hidden ") + "w-full h-full flex justify-center items-center"}>
-                <div className="bg-background shadow-around py-4 px-6 rounded flex flex-col gap-4 justify-evenly items-center">
+            <div ref={endWindow}
+                 className={(endGame ? "" : "hidden ") + "w-full h-full flex justify-center items-center"}>
+                <div
+                    className="bg-background shadow-around py-4 px-6 rounded flex flex-col gap-4 justify-evenly items-center">
                     <div className="text-2xl sm:text-3xl xl:text-4xl font-bold">End</div>
                     <div className="flex flex-col gap-2 items-center">
                         Your Last Guess
-                        <div className="w-fit h-fit grid grid-cols-5 mx-auto gap-2 place-content-center place-items-stretch font-roboto-mono">
+                        <div
+                            className="w-fit h-fit grid grid-cols-5 mx-auto gap-2 place-content-center place-items-stretch font-roboto-mono">
                             {guessedLetterStates && guessedLetterStates.slice(guessIndex * 5, guessIndex * 5 + 5).map((item, index) => {
                                 return (
-                                    <div key={index} className={`last-guess-letter-key-${index} ` + "transition-all box-content aspect-square size-text-sm text-sm/0 sm:size-text-base sm:text-base/0 md:size-text-lg md:text-lg/0 lg:size-text-xl lg:text-xl/0 xl:size-text-2xl xl:text-2xl font-bold text-transparent p-2 border-2 border-solid border-darker-shadow bg-bright-shadow flex items-center justify-center"}>
+                                    <div key={index}
+                                         className={`last-guess-letter-key-${index} ` + "transition-all box-content aspect-square size-text-sm text-sm/0 sm:size-text-base sm:text-base/0 md:size-text-lg md:text-lg/0 lg:size-text-xl lg:text-xl/0 xl:size-text-2xl xl:text-2xl font-bold text-transparent p-2 border-2 border-solid border-darker-shadow bg-bright-shadow flex items-center justify-center"}>
                                         {item.letter}
                                     </div>
                                 );
@@ -583,23 +602,28 @@ export default function GameMain() {
                     </div>
                     <div className="flex flex-col gap-2 items-center">
                         The Word
-                        <div className="w-fit h-fit grid grid-cols-5 mx-auto gap-2 place-content-center place-items-stretch font-roboto-mono">
+                        <div
+                            className="w-fit h-fit grid grid-cols-5 mx-auto gap-2 place-content-center place-items-stretch font-roboto-mono">
                             {Array.from(generatedWord, (letter) => letter.toUpperCase()).map((item, index) => {
                                 return (
-                                    <div key={index} className={`answer-letter-key-${index} ` + "transition-all box-content aspect-square size-text-sm text-sm/0 sm:size-text-base sm:text-base/0 md:size-text-lg md:text-lg/0 lg:size-text-xl lg:text-xl/0 xl:size-text-2xl xl:text-2xl font-bold text-transparent p-2 border-2 border-solid border-darker-shadow bg-bright-shadow flex items-center justify-center"}>
+                                    <div key={index}
+                                         className={`answer-letter-key-${index} ` + "transition-all box-content aspect-square size-text-sm text-sm/0 sm:size-text-base sm:text-base/0 md:size-text-lg md:text-lg/0 lg:size-text-xl lg:text-xl/0 xl:size-text-2xl xl:text-2xl font-bold text-transparent p-2 border-2 border-solid border-darker-shadow bg-bright-shadow flex items-center justify-center"}>
                                         {item}
                                     </div>
                                 );
                             })}
                         </div>
                     </div>
-                    <div className="mt-4 flex flex-col sm:flex-row items-stretch justify-center sm:items-center sm:justify-stretch text-center gap-2">
-                        <Link className="rounded-2xl border border-solid border-transparent transition-colors bg-foreground text-background hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base px-4 py-2"
-                              href="/game-start">
+                    <div
+                        className="mt-4 flex flex-col sm:flex-row items-stretch justify-center sm:items-center sm:justify-stretch text-center gap-2">
+                        <Link
+                            className="rounded-2xl border border-solid border-transparent transition-colors bg-foreground text-background hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base px-4 py-2"
+                            href="/game-start">
                             Try Another One?
                         </Link>
-                        <Link className="rounded-2xl border border-solid border-black/[.08] dark:border-white/[.145] transition-colors hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base px-4 py-2"
-                              href="/">
+                        <Link
+                            className="rounded-2xl border border-solid border-black/[.08] dark:border-white/[.145] transition-colors hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base px-4 py-2"
+                            href="/">
                             Close?
                         </Link>
                     </div>

@@ -6,7 +6,9 @@ export default function NotFound() {
             <div className="row-start-2 flex flex-col items-center justify-center place-items-center">
                 <h1>404 - Page Not Found</h1>
                 <p>Sorry, the page you are looking for does not exist.</p>
-                <Link href="/" className="mt-6 rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto">Go back to home</Link>
+                <Link href="/"
+                      className="mt-6 rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto">Go
+                    back to home</Link>
             </div>
         </div>
     );

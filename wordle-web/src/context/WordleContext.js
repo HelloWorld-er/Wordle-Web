@@ -1,7 +1,10 @@
 'use client';
 
 import {createContext, useContext, useEffect, useReducer, useRef, useState} from "react";
-import {fetchARandomWord as fetchARandomWordFromWordList, checkIfAWordValid as checkIfAWordValidFromWordList} from "@/utils/handleWordList";
+import {
+    checkIfAWordValid as checkIfAWordValidFromWordList,
+    fetchARandomWord as fetchARandomWordFromWordList
+} from "@/utils/handleWordList";
 import {HandleCacheContext} from "@/context/CacheContext";
 
 const GameStates = Object.freeze({
@@ -70,7 +73,7 @@ export default function WordleContextProvider({children}) {
                 dispatchLettersAvailabilityBuffer({
                     type: "clear",
                 });
-                return new Map(Array.from({ length: 26 }, (_, i) => [String.fromCharCode(65 + i), LetterStates.Initial]));
+                return new Map(Array.from({length: 26}, (_, i) => [String.fromCharCode(65 + i), LetterStates.Initial]));
             }
             case "set": {
                 const newLettersAvailabilityMap = new Map(lettersAvailabilityMap);
@@ -101,7 +104,7 @@ export default function WordleContextProvider({children}) {
                 return newLettersAvailabilityMap;
             }
         }
-    }, new Map(Array.from({ length: 26 }, (_, i) => [String.fromCharCode(65 + i), LetterStates.Initial])), undefined);
+    }, new Map(Array.from({length: 26}, (_, i) => [String.fromCharCode(65 + i), LetterStates.Initial])), undefined);
     const [updatedLettersBuffer, dispatchUpdatedLettersBuffer] = useReducer((updatedLettersBuffer, action) => {
         switch (action.type) {
             case "clear": {
@@ -151,7 +154,7 @@ export default function WordleContextProvider({children}) {
                     throw new Error("Invalid setStates action");
                 }
                 const newUpdatedLettersBuffer = structuredClone(updatedLettersBuffer);
-                for (let index = 0; index < action.keys.length; index ++) {
+                for (let index = 0; index < action.keys.length; index++) {
                     if (action.states[index] !== LetterStates.Initial) {
                         if (newUpdatedLettersBuffer.has(action.keys[index])) {
                             const value = newUpdatedLettersBuffer.get(action.keys[index]);
@@ -198,7 +201,7 @@ export default function WordleContextProvider({children}) {
                     throw new Error("Invalid setLettersAndStates action");
                 }
                 const newUpdatedLettersBuffer = structuredClone(updatedLettersBuffer);
-                for (let index = 0; index < action.keys.length; index ++) {
+                for (let index = 0; index < action.keys.length; index++) {
                     if (newUpdatedLettersBuffer.has(action.keys[index])) {
                         const value = newUpdatedLettersBuffer.get(action.keys[index]);
                         value.letter = action.letters[index];
@@ -271,14 +274,16 @@ export default function WordleContextProvider({children}) {
                 dispatchUpdatedLettersBuffer({
                     type: "clear"
                 });
-                return Array.from({length: action.length}, () => {return {letter: "", state: LetterStates.Initial}});
+                return Array.from({length: action.length}, () => {
+                    return {letter: "", state: LetterStates.Initial}
+                });
             }
             case "initSet": {
                 setIsInitializingGuessedLetterStates(true);
                 const keys = [];
                 const letters = [];
                 const states = [];
-                for (let index = 0; index < action.initGuessedLetterStates.length; index ++) {
+                for (let index = 0; index < action.initGuessedLetterStates.length; index++) {
                     if (action.initGuessedLetterStates[index].letter) {
                         keys.push(index);
                         letters.push(action.initGuessedLetterStates[index].letter);
@@ -450,7 +455,7 @@ export default function WordleContextProvider({children}) {
     useEffect(() => {
         if (!isFirstRender && isInitializingGuessedLetterStates) {
             setIsInitializingGuessedLetterStates(false);
-            const newLettersAvailabilityMap = new Map(Array.from({ length: 26 }, (_, i) => [String.fromCharCode(65 + i), LetterStates.Initial]));
+            const newLettersAvailabilityMap = new Map(Array.from({length: 26}, (_, i) => [String.fromCharCode(65 + i), LetterStates.Initial]));
             for (let {letter, state} of guessedLetterStates) {
                 if (newLettersAvailabilityMap.has(letter) && newLettersAvailabilityMap.get(letter) < state) {
                     newLettersAvailabilityMap.set(letter, state);
@@ -468,9 +473,9 @@ export default function WordleContextProvider({children}) {
         if (!isFirstRender && isInitializingGuessedLetterStates) {
             setIsInitializingGuessedLetterStates(false);
             let newCursorIndex = 0;
-            for (let index = guessIndex * 5; index < guessIndex * 5 + 5 && index < guessedLetterStates.length; index ++) {
+            for (let index = guessIndex * 5; index < guessIndex * 5 + 5 && index < guessedLetterStates.length; index++) {
                 if (guessedLetterStates[index].letter) {
-                    newCursorIndex ++;
+                    newCursorIndex++;
                 } else {
                     break;
                 }
@@ -545,15 +550,21 @@ export default function WordleContextProvider({children}) {
     }
 
     return (
-        <WordleGameStateContext.Provider value={[currentGameState, dispatchCurrentGameState, GameStates, isFirstRender]}>
+        <WordleGameStateContext.Provider
+            value={[currentGameState, dispatchCurrentGameState, GameStates, isFirstRender]}>
             <WordleWordContext.Provider value={wordleWord}>
                 <WordleWordDispatchContext.Provider value={generateAWord}>
                     <WordleWordCheckContext.Provider value={checkIfWordValidAndCompare}>
-                        <WordleWordLetterPositionContext.Provider value={[guessIndex, setGuessIndex, cursorIndex, setCursorIndex]}>
-                            <WordleLetterStatesContext.Provider value={[guessedLetterStates, dispatchGuessedLetterStates, LetterStates]}>
-                                <WordleExistedLettersBufferContext.Provider value={[updatedLettersBuffer, dispatchUpdatedLettersBuffer]}>
-                                    <WordleLettersAvailabilityBufferContext.Provider value={[lettersAvailabilityBuffer, dispatchLettersAvailabilityBuffer]}>
-                                        <WordleLettersAvailabilityMapContext.Provider value={[lettersAvailabilityMap, dispatchLettersAvailabilityMap]}>
+                        <WordleWordLetterPositionContext.Provider
+                            value={[guessIndex, setGuessIndex, cursorIndex, setCursorIndex]}>
+                            <WordleLetterStatesContext.Provider
+                                value={[guessedLetterStates, dispatchGuessedLetterStates, LetterStates]}>
+                                <WordleExistedLettersBufferContext.Provider
+                                    value={[updatedLettersBuffer, dispatchUpdatedLettersBuffer]}>
+                                    <WordleLettersAvailabilityBufferContext.Provider
+                                        value={[lettersAvailabilityBuffer, dispatchLettersAvailabilityBuffer]}>
+                                        <WordleLettersAvailabilityMapContext.Provider
+                                            value={[lettersAvailabilityMap, dispatchLettersAvailabilityMap]}>
                                             {children}
                                         </WordleLettersAvailabilityMapContext.Provider>
                                     </WordleLettersAvailabilityBufferContext.Provider>
