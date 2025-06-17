@@ -1,6 +1,6 @@
 {
   "main": ".open-next/worker.js",
-  "name": "my-app",
+  "name": "wordle-web",
   "routes": [
     {
       "pattern": "wordle.keephelloworld-ing.dpdns.org",
