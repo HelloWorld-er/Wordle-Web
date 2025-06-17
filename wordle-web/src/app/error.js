@@ -45,8 +45,8 @@ export default function Error({error, reset}) {
                             If all of the above do not work, please try to refresh the page or reopen the app.
                         </p>
                         <p className="mx-2 text-xs">
-                            If possible, please report the issue to the developer at <span
-                            className="font-bold text-blue-500 break-all">https://github.com/HelloWorld-er/Wordle/issues</span>
+                            If possible, please report the issue to the developer at <a
+                            className="font-bold text-blue-500 break-all" href="https://github.com/HelloWorld-er/Wordle/issues">https://github.com/HelloWorld-er/Wordle/issues</a>
                         </p>
                     </div>
                 </div>
