@@ -4,7 +4,7 @@
   "routes": [
     {
       "pattern": "wordle.keephelloworld-ing.dpdns.org/*",
-      "zone_name": "keephelloworld-ing.dpdns.org/"
+      "zone_name": "keephelloworld-ing.dpdns.org"
     }
   ],
   "compatibility_date": "2025-03-25",
