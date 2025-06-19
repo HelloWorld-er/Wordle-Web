@@ -2,7 +2,6 @@ import {Roboto, Roboto_Mono} from "next/font/google";
 import "./globals.css";
 import KeyboardContextProvider from "@/context/KeyboardContext";
 import {CacheContextProvider} from "@/context/CacheContext";
-import Head from "next/head";
 
 const roboto = Roboto({
     variable: "--font-roboto",
