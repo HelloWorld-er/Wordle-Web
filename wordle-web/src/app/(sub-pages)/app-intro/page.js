@@ -16,20 +16,16 @@ export default function GameIntro() {
                             <span className="box-border border-b-2 h-1/2 border-b-darkest-shadow"></span>
                         </h2>
                         <p className="tracking-tight text-sm sm:text-base text-center">
-                            This is an open-source wordle game licensed under the MIT license. This app is hosted and
-                            published on Github.
+                            This is an open-source wordle game licensed under the MIT license. This app is published on Github and hosted by Vercel and Cloudflare.
                         </p>
                         <ul className="list-inside list-disc">
                             <li className="tracking-tight text-sm sm:text-base text-center">
                                 You can find the source code at <a
-                                className="font-bold text-blue-500 break-all" href="https://github.com/HelloWorld-er/Wordle">https://github.com/HelloWorld-er/Wordle</a>
+                                className="font-bold text-blue-500 break-all" href="https://github.com/HelloWorld-er/Wordle">https://github.com/HelloWorld-er/Wordle-Web</a>
                             </li>
                             <li className="tracking-tight text-sm sm:text-base text-center">
                                 You can find other versions of this app at <a
-                                className="font-bold text-blue-500 break-all" href="https://github.com/HelloWorld-er/Wordle/releases">https://github.com/HelloWorld-er/Wordle/releases</a>
-                                <p className="font-semibold text-red-500">Currently, update is not supported in this
-                                    app. If you want to update to a newer version, you have to install it by
-                                    yourself.</p>
+                                className="font-bold text-blue-500 break-all" href="https://github.com/HelloWorld-er/Wordle/releases">https://github.com/HelloWorld-er/Wordle-Web/releases</a>
                             </li>
                         </ul>
                     </div>
@@ -41,13 +37,20 @@ export default function GameIntro() {
                         </h2>
                         <ul className="ms-[2rem] list-outside list-disc tracking-tight text-sm sm:text-base">
                             <li>
-                                <span className="font-semibold">Tauri 2.0</span>:
-                                The framework used to build this app, allowing it to run as a desktop application.
+                                <span className="font-semibold">Vercel</span>:
+                                The platform used to host this app, providing a fast and reliable deployment solution.
+                            </li>
+                            <li>
+                                <span className="font-semibold">Cloudflare</span>:
+                                The CDN used as a DNS manager for the domain name that this app/website is using.
+                            </li>
+                            <li>
+                                <span className="font-semibold">DigitalPlat</span>:
+                                An open source project that gives the top-level domain name for free.
                             </li>
                             <li>
                                 <span className="font-semibold">NextJS</span>:
-                                The framework used to build the frontend of this app, providing a robust and scalable
-                                architecture.
+                                The framework used to build this app, providing a robust and scalable architecture.
                             </li>
                             <li>
                                 <span className="font-semibold">TailwindCSS</span>:
