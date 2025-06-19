@@ -5,10 +5,9 @@ export default function GameIntro() {
         <div className="relative w-full h-full flex items-center justify-center p-4">
             <LettersFalling positionClass="absolute" className="hidden sm:block -z-50 top-0 left-0"/>
             <div
-                className="max-w-full max-h-full bg-background shadow-around py-4 px-6 rounded flex flex-col gap-4 justify-evenly items-center">
+                className="max-w-full max-h-full bg-background shadow-around p-6 rounded flex flex-col gap-4 justify-evenly items-center">
                 <h1 className="text-center">About this App</h1>
-                <div
-                    className="grow z-50 w-9/10 flex flex-col place-content-center sm:justify-evenly gap-2 overflow-y-auto">
+                <div className="grow self-stretch z-50 w-9/10 flex flex-col sm:justify-evenly gap-2 overflow-y-auto">
                     <div className="flex flex-col items-center">
                         <h2 className="w-full grid grid-cols-[1fr_auto_1fr] grid-rows-1 gap-2">
                             <span className="box-border border-b-2 h-1/2 border-b-darkest-shadow"></span>
@@ -68,6 +67,16 @@ export default function GameIntro() {
                                 is licensed under the MIT License.
                             </li>
                         </ul>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <h2 className="w-full grid grid-cols-[1fr_auto_1fr] grid-rows-1 gap-2">
+                            <span className="box-border border-b-2 h-1/2 border-b-darkest-shadow"></span>
+                            Desktop Wordle
+                            <span className="box-border border-b-2 h-1/2 border-b-darkest-shadow"></span>
+                        </h2>
+                        <p className="tracking-tight text-sm sm:text-base text-center">
+                            Interested in a desktop version of Wordle? Check out the <a className="font-bold text-blue-500 break-all" href="https://github.com/HelloWorld-er/Wordle/releases">release page of desktop Wordle</a>.
+                        </p>
                     </div>
                 </div>
             </div>

@@ -554,11 +554,9 @@ export default function GameMain() {
     return (
         <>
             <div className="w-full h-full flex flex-col justify-center items-center">
-                <div
-                    className="relative w-full min-h-4/5 max-h-full bg-background flex flex-col gap-4 justify-evenly items-center overflow-hidden">
+                <div className="relative w-full min-h-4/5 max-h-full bg-background flex flex-col gap-4 justify-evenly items-center overflow-hidden">
                     <h1>Wordle</h1>
-                    <div
-                        className="grow m-4 self-stretch flex flex-col flex-wrap items-center justify-evenly gap-2 overflow-auto">
+                    <div className="grow m-4 self-stretch flex flex-col flex-wrap items-center justify-evenly gap-2 overflow-y-auto">
                         <div ref={guessLettersContainer}
                              className="w-fit h-fit grid grid-cols-5 mx-auto my-2 gap-2 place-content-center place-items-stretch font-roboto-mono">
                             {guessedLetterStates && guessedLetterStates.map((item, index) => {
