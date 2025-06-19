@@ -2,6 +2,7 @@ import {Roboto, Roboto_Mono} from "next/font/google";
 import "./globals.css";
 import KeyboardContextProvider from "@/context/KeyboardContext";
 import {CacheContextProvider} from "@/context/CacheContext";
+import Head from "next/head";
 
 const roboto = Roboto({
     variable: "--font-roboto",
@@ -18,11 +19,13 @@ export const metadata = {
     description: "An open source project of the popular game Wordle",
     icons: {
         icon: [
-            // SVG version first
-            {url: '/favicon.svg', type: 'image/svg+xml'},
-            // ICO fallback
-            {url: '/favicon.ico', type: 'image/x-icon'},
-        ],
+            {
+                url: '/favicon.png', type: 'image/x-icon'
+            },
+            {
+                url: '/favicon.svg', type: 'image/svg+xml'
+            },
+        ]
     },
 };
 
